@@ -1,131 +1,217 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            margin: 20px;
-            background-color: #f5f5f5; /* Light background */
-            color: #333; /* Dark text */
-            transition: background-color 0.3s ease;
-        }
-        h1 {
-            text-align: center;
-            color: #4caf50; /* Apple green */
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-        .input-group {
+            margin: 0;
+            height: 100vh;
+            animation: backgroundAnimation 10s infinite alternate;
             display: flex;
             align-items: center;
-            margin: 10px 0;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
+
+        @keyframes backgroundAnimation {
+            0% { background-color: #66bb6a; }
+            50% { background-color: #81c784; }
+            100% { background-color: #a5d6a7; }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #388e3c;
+            margin-bottom: 15px;
+            font-size: 26px;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .input-group {
+            display: flex;
+            margin: 10px 0;
+            align-items: center;
+        }
+
         label {
             margin-right: 10px;
             font-weight: bold;
-            color: #333; /* Dark text for labels */
-            width: 150px; /* Fixed width for labels */
+            color: #333;
+            width: 120px;
+            font-size: 16px;
         }
+
         input, textarea {
-            width: calc(100% - 24px); /* Full width minus padding */
-            padding: 12px;
-            border: 2px solid #4caf50; /* Apple green border */
+            padding: 10px;
+            border: 2px solid #4caf50;
             border-radius: 5px;
-            background-color: #ffffff; /* White background */
-            color: #333; /* Dark text */
-            transition: border 0.3s ease, background-color 0.3s ease;
+            width: calc(100% - 130px);
+            font-size: 14px;
+            transition: border 0.3s ease;
         }
-        /* Smaller width for specific inputs */
-        #agentName, #callTime, #callDate {
-            width: 120px; /* Adjusted width for 10 characters */
-        }
+
         input:focus, textarea:focus {
-            border-color: #388e3c; /* Darker green on focus */
-            background-color: #f0f0f0; /* Light gray on focus */
+            border-color: #388e3c;
             outline: none;
         }
+
         button {
-            background-color: #4caf50; /* Apple green */
+            background-color: #4caf50;
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
-            margin: 10px 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-        button:hover {
-            background-color: #388e3c; /* Darker green on hover */
-            transform: scale(1.05);
-        }
-        #output {
-            white-space: pre-wrap;
-            background-color: #ffffff; /* White background for output */
-            color: #333; /* Dark text for output */
-            padding: 15px;
-            border: 1px solid #4caf50; /* Apple green border */
-            margin-top: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 5px 0;
+            font-size: 14px;
             transition: background-color 0.3s ease;
         }
-        #entries div {
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
-            margin-top: 5px;
+
+        button:hover {
+            background-color: #388e3c;
         }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
+
+        #output {
+            white-space: pre-wrap;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #4caf50;
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .flying-logos {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .logo-icon {
+            position: absolute;
+            width: 40px;
+            opacity: 0.7;
+            animation: flyLogo 10s infinite linear;
+        }
+
+        @keyframes flyLogo {
+            0% {
+                transform: translateY(100vh) translateX(-50%);
+            }
+            100% {
+                transform: translateY(-100px) translateX(50%);
             }
         }
     </style>
 </head>
 <body>
 
-<h1>FCM Documentation</h1>
+<div class="flying-logos">
+    <!-- Generate 50 Flying Logos -->
+    <script>
+        for (let i = 0; i < 50; i++) {
+            const logo = document.createElement('img');
+            logo.src = "https://logowik.com/content/uploads/images/fcm-travel-solution5417.jpg"; // Logo URL
+            logo.alt = "Logo";
+            logo.className = "logo-icon";
+            logo.style.left = `${Math.random() * 100}%`;
+            logo.style.animationDuration = `${Math.random() * 5 + 5}s`;
+            logo.style.animationDelay = `${Math.random() * 5}s`;
+            document.querySelector('.flying-logos').appendChild(logo);
+        }
+    </script>
+</div>
 
-<div>
+<div class="container">
+    <h1>
+        <img src="https://logowik.com/content/uploads/images/fcm-travel-solution5417.jpg" alt="Logo" class="logo">
+        FCM Documentation
+    </h1>
+
     <div class="input-group">
         <label for="agentName">Agent Name:</label>
-        <input type="text" id="agentName" value="ED">
+        <input type="text" id="agentName" placeholder="Enter Name" required>
     </div>
     
     <div class="input-group">
         <label for="callTime">Call Time:</label>
-        <input type="text" id="callTime" value="149A-EST">
+        <input type="text" id="callTime" placeholder="Enter Time" required>
     </div>
     
     <div class="input-group">
         <label for="callDate">Call Date:</label>
-        <input type="text" id="callDate" value="02oct">
+        <input type="text" id="callDate" readonly>
     </div>
     
     <div class="input-group">
-        <label for="entryText">Documentation Entry:</label>
-        <textarea id="entryText" placeholder="Enter your documentation here..."></textarea>
+        <label for="entryText">Entry:</label>
+        <textarea id="entryText" placeholder="Documentation..." required></textarea>
     </div>
     
-    <button onclick="addEntry()">Add Entry</button>
-    <button onclick="clearEntries()">Clear</button>
-    <button onclick="copyOutput()">Copy</button>
-</div>
+    <div class="button-group">
+        <button onclick="addEntry()">Add Entry</button>
+        <button onclick="clearEntries()">Clear</button>
+        <button onclick="copyOutput()">Copy</button>
+    </div>
 
-<div id="output">
-    5H-ECC DOCUMENTATION START******************************<br>
-    §5H-** EMERGENCY CUSTOMER CARE ** <span id="callDetails"></span> **<br>
-    <div id="entries"></div>
-    §5H-ECC DOCUMENTATION END********************************
+    <div id="output">
+        5H-ECC DOCUMENTATION START******************************<br>
+        §5H-** EMERGENCY CUSTOMER CARE ** <span id="callDetails"></span> **<br>
+        <div id="entries"></div>
+        §5H-ECC DOCUMENTATION END********************************
+    </div>
+
+    <footer>
+        Developed by Edrianne James T. Salutin
+    </footer>
 </div>
 
 <script>
     function updateCallDetails() {
-        const agentName = document.getElementById('agentName').value;
-        const callTime = document.getElementById('callTime').value;
+        const agentName = document.getElementById('agentName').value || "ED";
+        const callTime = document.getElementById('callTime').value || "149A-EST";
         const callDate = document.getElementById('callDate').value;
         document.getElementById('callDetails').innerText = `${agentName}/${callTime}/${callDate}`;
     }
@@ -139,8 +225,6 @@
             newEntry.innerText = `§5H-${entryText}`;
             entriesDiv.appendChild(newEntry);
             document.getElementById('entryText').value = ''; // Clear the textarea
-            newEntry.style.opacity = '0';
-            setTimeout(() => { newEntry.style.opacity = '1'; }, 0);
         }
     }
 
@@ -155,10 +239,18 @@
         });
     }
 
-    // Add event listener for Enter key
+    function setTodayDate() {
+        const today = new Date();
+        const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+        const formattedDate = `${("0" + today.getDate()).slice(-2)}${monthNames[today.getMonth()]}`;
+        document.getElementById('callDate').value = formattedDate;
+    }
+
+    setTodayDate();
+
     document.getElementById('entryText').addEventListener('keypress', function(event) {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent new line in textarea
+            event.preventDefault();
             addEntry();
         }
     });
